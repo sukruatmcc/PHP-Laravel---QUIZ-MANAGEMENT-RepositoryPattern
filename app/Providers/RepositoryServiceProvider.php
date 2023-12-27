@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
-use App\Interfaces\IAdminRepositoryInterface;
-use App\Repositories\AdminRepository;
+use App\Interfaces\IExamRepositoryInterface;
+use App\Interfaces\IStudentRepositoryInterface;
+use App\Repositories\ExamRepository;
+use App\Repositories\StudentRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -26,6 +28,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
     public function bindRepositories()
     {
-        $this->app->bind(IAdminRepositoryInterface::class, AdminRepository::class);
+        $this->app->bind(IStudentRepositoryInterface::class, StudentRepository::class);
+        $this->app->bind(IExamRepositoryInterface::class, ExamRepository::class);
     }
 }
