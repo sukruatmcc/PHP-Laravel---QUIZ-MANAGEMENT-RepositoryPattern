@@ -15,16 +15,8 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
-                <li class="nav-item">
-                    <a href="{{ route('dashboard') }}" class="nav-link">
-                        <i class="fa-solid fa-users"></i>
-                        <p>
-                            Students
-                        </p>
-                    </a>
-                </li>
              <li class="nav-item">
-                <a href="{{ route('exams') }}" class="nav-link">
+                <a href="" class="nav-link">
                     <i class="fa-solid fa-book-open"></i>
                     <p>
                         Exams

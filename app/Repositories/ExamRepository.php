@@ -35,13 +35,26 @@ class ExamRepository implements IExamRepositoryInterface
         return Exam::find($id);
     }
 
+    public function questionRow($id)
+    {
+        return Exam::where('id',$id)->with('question')->get();
+    }
+
     public function updateRow(Request $request,$id)
     {
         Exam::find($id)->update([
             'name' => $request->name,
             'passing_score' => $request->passing_score,
+            'end_date' => $request->end_date,
             'description' => $request->description,
             'updated_at' => $request->updated_at
         ]);
+    }
+
+    public function statusRow(Request $request)
+    {
+        $update = Exam::find($request->id);
+        $update->status = $request->status;
+        $update->save();
     }
 }

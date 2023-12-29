@@ -16,7 +16,7 @@ class ExamController extends Controller
     public function index()
     {
         $exams = $this->examRepository->getAll();
-        return view('admin.exams',compact('exams'));
+        return view('admin.exams', compact('exams'));
     }
 
     /**
@@ -33,15 +33,22 @@ class ExamController extends Controller
     public function store(Request $request)
     {
         $this->examRepository->saveRow($request);
-        return redirect()->route('exams')->with('success','Exam added successfully');
+        return redirect()->route('exams')->with('success', 'Exam added successfully');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function status(Request $request)
     {
-        //
+        $this->examRepository->statusRow($request);
+        return response()->json(['message' => "Status Updated", "status" => "Success"]);
+    }
+
+    public function show($id)
+    {
+        $questions = $this->examRepository->questionRow($id);
+        return view('admin.questions',compact('questions'));
     }
 
     /**
@@ -49,7 +56,8 @@ class ExamController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $exam = $this->examRepository->editRow($id);
+        return view('admin.exam-edit', compact('exam'));
     }
 
     /**
@@ -57,7 +65,8 @@ class ExamController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $this->examRepository->updateRow($request, $id);
+        return to_route('exams')->with('success', 'Exam updated successfully');
     }
 
     /**
@@ -66,6 +75,6 @@ class ExamController extends Controller
     public function destroy(string $id)
     {
         $this->examRepository->remove($id);
-        return response()->json(['success' => true,'status' => 'success']);
+        return response()->json(['success' => true, 'status' => 'Success']);
     }
 }

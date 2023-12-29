@@ -1,12 +1,12 @@
 @extends('admin.layouts.master')
 @section('title')
-    Add Exam
+    Edit Exam
 @endsection
 @section('breadCrumbTitle')
-    Add Exam
+    Edit Exam
 @endsection
 @section('breadCrumbMenu')
-    Add Exam
+    Edit Exam
 @endsection
 @section('css')
     <link rel="stylesheet"
@@ -23,23 +23,24 @@
                             Index</a>
                     </div>
                     <div class="card-body">
-                        <form id="quickForm" method="POST" action="{{ route('exam.store') }}">
+                        <form id="quickForm" method="POST" action="{{ route('exam.update',$exam->id) }}">
                             @csrf
+                            @method('PUT')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" name="name" class="form-control" id="name"
+                                    <input value="{{ $exam->name }}" type="text" name="name" class="form-control" id="name"
                                         placeholder="Enter Name">
                                 </div>
                                 <div class="form-group">
                                     <label for="passing_score">Passing Score</label>
-                                    <input type="text" name="passing_score" class="form-control" id="passing_score"
+                                    <input value="{{ $exam->passing_score }}" type="text" name="passing_score" class="form-control" id="passing_score"
                                         placeholder="Enter Passing Score">
                                 </div>
                                 <div class="form-group">
                                     <label for="end_date">End Date</label>
                                     <div class="datepicker date input-group">
-                                        <input type="text" name="end_date" placeholder="Choose Date" class="form-control"
+                                        <input value="{{ $exam->end_date }}" type="text" name="end_date" placeholder="Choose Date" class="form-control"
                                             id="end_date">
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
@@ -48,10 +49,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Description</label>
-                                    <textarea name="description" id="description" class="form-control" rows="3" placeholder="Enter Description ..."></textarea>
+                                    <textarea name="description" id="description" class="form-control" rows="3" placeholder="Enter Description ...">{{ $exam->description }}</textarea>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-info">Add</button>
+                            <button type="submit" class="btn btn-info">Edit</button>
                         </form>
                     </div>
                 </div>

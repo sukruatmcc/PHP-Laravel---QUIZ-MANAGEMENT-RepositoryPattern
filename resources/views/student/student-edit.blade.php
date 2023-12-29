@@ -3,15 +3,14 @@
     Students
 @endsection
 @section('breadCrumbTitle')
-    Add Student
+    Edit Student
 @endsection
 @section('breadCrumbMenu')
-    Add Student
+    Edit Student
 @endsection
 
 @section('content')
     <div class="container">
-        @include('admin.layouts.success')
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -20,23 +19,24 @@
                             Index</a>
                     </div>
                     <div class="card-body">
-                        <form id="quickForm" method="POST" action="{{ route('student.store') }}">
+                        <form id="quickForm" method="POST" action="{{ route('student.update',$user->id) }}">
                             @csrf
+                            @method('PUT')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name">
+                                    <input type="text" value="{{ $user->name }}" name="name" class="form-control" id="name" placeholder="Enter Name">
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
+                                    <input type="email" value="{{ $user->email }}" name="email" class="form-control" id="email" placeholder="Enter email">
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                                    <input type="password" value="{{ $user->password }}" name="password" class="form-control" id="password" placeholder="Password">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-info">Add</button>
+                            <button type="submit" class="btn btn-info">Edit</button>
                         </form>
                     </div>
                 </div>

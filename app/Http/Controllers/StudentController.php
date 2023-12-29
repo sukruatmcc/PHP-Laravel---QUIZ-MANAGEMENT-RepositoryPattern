@@ -70,6 +70,6 @@ class StudentController extends Controller
     public function destroy(string $id)
     {
         $this->adminRepository->remove($id);
-        return response()->json(['success' => true,'status' => 'success']);
+        return response()->json(['success' => true,'status' => 'Success']);
     }
 }
