@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@section('exams')
+active
+@endsection
 @section('title')
     Exams
 @endsection

@@ -1,12 +1,15 @@
 @extends('admin.layouts.master')
+@section('studentExamResult')
+active
+@endsection
 @section('title')
-    Students
+    Student Exam Results
 @endsection
 @section('breadCrumbTitle')
-    Students
+    Student Exam Results
 @endsection
 @section('breadCrumbMenu')
-    Students
+    Student Exam Results
 @endsection
 
 @section('content')
@@ -16,7 +19,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header" style="width: 200px; border:none">
-                            <a href="{{ route('student.add') }}" class="btn btn-block btn-info btn-flat">Add Student</a>
+                        <a href="{{ route('examResult.add') }}" class="btn btn-block btn-info btn-flat">Add Exam Result
+                        </a>
                     </div>
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
@@ -24,22 +28,20 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Email</th>
+                                    <th>Score</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($users as $user)
+                                @foreach ($examResults as $examResult)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $examResult->users[0]->name }}</td>
+                                        <td>{{ $examResult->point }}</td>
                                         <td>
                                             <button type="button" style="border:none" class="text-danger destroy"
-                                                data-action="{{ route('student.destroy', $user->id) }}"
-                                                data-id="{{ $user->id }}"><i class="fa-solid fa-trash"></i></button>
-                                            <a href="{{ route('student.edit', $user->id) }}"><i
-                                                    class="fa-regular fa-pen-to-square"></i></a>
+                                                data-action="{{ route('examResult.destroy',$examResult->id) }}" data-id="{{ $examResult->id }}"><i class="fa-solid fa-trash"></i></button>
+                                            <a href="{{ route('examResult.edit',$examResult->id) }}"><i class="fa-regular fa-pen-to-square"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -48,7 +50,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Email</th>
+                                    <th>Score</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>

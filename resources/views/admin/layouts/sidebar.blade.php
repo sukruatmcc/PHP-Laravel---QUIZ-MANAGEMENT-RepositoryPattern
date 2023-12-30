@@ -8,7 +8,7 @@
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
-                <a href="#" class="d-block">{{ Auth::user()->name }} - {{ Auth::user()->role }}</a>
+                <a href="{{ route('dashboard') }}" class="d-block">{{ Auth::user()->name }} - {{ Auth::user()->role }}</a>
             </div>
         </div>
 
@@ -16,7 +16,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{ route('dashboard') }}" class="nav-link">
+                    <a href="{{ route('dashboard') }}" class="nav-link @yield('students')">
                         <i class="fa-solid fa-users"></i>
                         <p>
                             Students
@@ -24,10 +24,18 @@
                     </a>
                 </li>
              <li class="nav-item">
-                <a href="{{ route('exams') }}" class="nav-link">
+                <a href="{{ route('exams') }}" class="nav-link @yield('exams')">
                     <i class="fa-solid fa-book-open"></i>
                     <p>
                         Exams
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('examResults') }}" class="nav-link @yield('studentExamResult')">
+                    <i class="fa-solid fa-square-poll-horizontal"></i>
+                    <p>
+                        Student Exam Results
                     </p>
                 </a>
             </li>

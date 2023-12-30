@@ -44,6 +44,13 @@ Route::middleware(['auth','is_admin'])->group(function () {
         Route::get('question/{id}/edit', [QuestionController::class, 'edit'])->name('question.edit');
         Route::put('question/{id}/edit',[QuestionController::class,'update'])->name('question.update');
 
+        Route::get('exam/result',[StudentController::class,'examResults'])->name('examResults');
+        Route::get('exam/result/add',[StudentController::class,'examResultCreate'])->name('examResult.add');
+        Route::post('exam/result/add',[StudentController::class,'examResultStore'])->name('examResult.store');
+        Route::get('exam/result/{id}/edit', [StudentController::class, 'examResultEdit'])->name('examResult.edit');
+        Route::put('exam/result/{id}/edit',[StudentController::class,'examResultUpdate'])->name('examResult.update');
+        Route::delete('exam/result/{id}/destroy', [StudentController::class, 'examResultDestroy'])->name('examResult.destroy');
+
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

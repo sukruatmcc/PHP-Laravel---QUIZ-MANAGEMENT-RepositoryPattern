@@ -1,29 +1,18 @@
 <?php
 
-use App\Http\Controllers\ExamController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\StudentController;
+use App\Http\Controllers\Student\AnswerController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth','is_student'])->group(function () {
-    Route::get('/test', function () {
-        return 'test';
-    });});
+Route::prefix('student')->middleware(['auth','is_student'])->group(function () {
+    Route::get('exams',[AnswerController::class,'exams'])->name('student.exams');
+    Route::get('my/answer/{id}',[AnswerController::class,'index'])->name('student.exam.question');
+    Route::post('exam/question/my/answer/{id}',[AnswerController::class,'store'])->name('student.exam.question.answer');
+    Route::get('my/exam/result/{id}',[AnswerController::class,'examResultDetail'])->name('student.exam.result');
+});
 
 require __DIR__.'/auth.php';

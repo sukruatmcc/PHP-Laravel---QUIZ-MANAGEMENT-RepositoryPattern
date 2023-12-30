@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    Students
+    Edit Students
 @endsection
 @section('breadCrumbTitle')
     Edit Student

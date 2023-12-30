@@ -1,39 +1,41 @@
 @extends('admin.layouts.master')
 @section('title')
-    Students
+    Edit Exam Results
 @endsection
 @section('breadCrumbTitle')
-    Edit Student
+    Edit Exam Result
 @endsection
 @section('breadCrumbMenu')
-    Edit Student
+    Edit Exam Result
 @endsection
 
 @section('content')
     <div class="container">
+        @include('admin.layouts.success')
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header" style="width: 200px; border:none">
-                        <a href="{{ route('dashboard') }}" type="button" class="btn btn-block btn-info btn-flat">Student
+                        <a href="{{ route('examResults') }}" type="button" class="btn btn-block btn-info btn-flat">Exam Result
                             Index</a>
                     </div>
                     <div class="card-body">
-                        <form id="quickForm" method="POST" action="{{ route('student.update',$user->id) }}">
+                        <form id="quickForm" method="POST" action="{{ route('examResult.update',$examResult->id) }}">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" value="{{ $user->name }}" name="name" class="form-control" id="name" placeholder="Enter Name">
-                                </div>
+                                    <label for="exampleSelectRounded0">Students</label>
+                                    <select name="user_id" class="custom-select rounded-0" id="exampleSelectRounded0">
+                                    <option value="">Student Select</option>
+                                     @foreach ($users as $user)
+                                     <option {{ $user->id === $examResult->user_id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
+                                     @endforeach
+                                    </select>
+                                  </div>
                                 <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" value="{{ $user->email }}" name="email" class="form-control" id="email" placeholder="Enter email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" value="{{ $user->password }}" name="password" class="form-control" id="password" placeholder="Password">
+                                    <label for="point">Score</label>
+                                    <input value="{{ $examResult->point }}" type="text" name="point" class="form-control" id="point" placeholder="Enter Point">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-info">Edit</button>
@@ -49,24 +51,18 @@
         $(document).ready(function() {
             $('#quickForm').validate({
                 rules: {
-                    name: {
+                    user_id: {
+                        required: true,
+                    },
+                    point: {
                         required: true
                     },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    password: {
-                        required: true,
-                    }
                 },
                 messages: {
-                    name: "Please enter your name",
-                    email: {
-                        required: "Please enter your email",
-                        email: "Please enter a valid email address"
+                    user_id: {
+                        required: "Please enter your user_id",
                     },
-                    password: "Please enter your password"
+                    point: "Please enter your point",
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {

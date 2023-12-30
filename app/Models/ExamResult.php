@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Question extends Model
+class ExamResult extends Model
 {
     use HasFactory;
     protected $guarded = [];
 
-
-    public function myAnswer()
+    public function users()
     {
-        return $this->hasOne('App\Models\Answer', 'question_id','id')->where('user_id', auth()->user()->id);
+        return $this->hasMany('App\Models\User','id','user_id');
     }
 }

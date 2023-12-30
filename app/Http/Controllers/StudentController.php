@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\IStudentRepositoryInterface;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -41,11 +42,11 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function examResults()
     {
-        //
+        $examResults = $this->adminRepository->examResultRows();
+        return view('admin.student-exam-results',compact('examResults'));
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -71,5 +72,36 @@ class StudentController extends Controller
     {
         $this->adminRepository->remove($id);
         return response()->json(['success' => true,'status' => 'Success']);
+    }
+
+    public function examResultCreate()
+    {
+        $users = User::whereRole('Student')->get();
+        return view('admin.student-exam-result-add',compact('users'));
+    }
+
+    public function examResultStore(Request $request)
+    {
+        $this->adminRepository->examResultStoreRow($request);
+        return to_route('examResults')->with('success','Student exam result added successfully');
+    }
+
+    public function examResultEdit($id)
+    {
+        $examResult = $this->adminRepository->examResultEditRow($id);
+        $users = User::whereRole('student')->orderBy('created_at')->get();
+        return view('admin.student-exam-result-edit',compact('examResult','users'));
+    }
+
+    public function examResultUpdate(Request $request,$id)
+    {
+        $this->adminRepository->examResultUpdateRow($request,$id);
+        return to_route('examResults')->with('success','Student exam result updated successfully');
+    }
+
+    public function examResultDestroy($id)
+    {
+        $this->adminRepository->examResultDestroyRow($id);
+        return response()->json(['message' => true, 'status' => 'Success']);
     }
 }
