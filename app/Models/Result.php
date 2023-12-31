@@ -9,4 +9,9 @@ class Result extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function users()
+    {
+        return $this->hasMany('App\Models\User','id','user_id');
+    }
 }

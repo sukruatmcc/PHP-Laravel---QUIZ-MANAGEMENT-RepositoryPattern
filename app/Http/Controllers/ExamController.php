@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\IExamRepositoryInterface;
+use App\Models\Question;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -48,7 +50,7 @@ class ExamController extends Controller
     public function show($id)
     {
         $questions = $this->examRepository->questionRow($id);
-        return view('admin.questions',compact('questions'));
+        return view('admin.questions', compact('questions'));
     }
 
     /**
@@ -76,5 +78,21 @@ class ExamController extends Controller
     {
         $this->examRepository->remove($id);
         return response()->json(['success' => true, 'status' => 'Success']);
+    }
+
+    public function assignQuestions()
+    {
+        $questions = Question::all();
+        $students = User::whereRole('Student')->get();
+
+        $assignmentList = [];
+
+        foreach ($students as $student) {
+            $assignedQuestions = $questions->random(ceil(count($questions) * 0.2));
+
+            $assignmentList[$student->name] = $assignedQuestions->pluck('question')->toArray();
+        }
+
+        return view('admin.question-assignment', compact('assignmentList'));
     }
 }

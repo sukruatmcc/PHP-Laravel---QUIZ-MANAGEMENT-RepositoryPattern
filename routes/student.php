@@ -13,6 +13,7 @@ Route::prefix('student')->middleware(['auth','is_student'])->group(function () {
     Route::get('my/answer/{id}',[AnswerController::class,'index'])->name('student.exam.question');
     Route::post('exam/question/my/answer/{id}',[AnswerController::class,'store'])->name('student.exam.question.answer');
     Route::get('my/exam/result/{id}',[AnswerController::class,'examResultDetail'])->name('student.exam.result');
+    Route::get('/result/analysis', [AnswerController::class,'resultAnalysis'])->name('student.resultAnalysis');
 });
 
 require __DIR__.'/auth.php';

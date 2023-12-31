@@ -5,6 +5,8 @@ namespace App\Repositories;
 
 use App\Interfaces\IExamRepositoryInterface;
 use App\Models\Exam;
+use App\Models\Question;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ExamRepository implements IExamRepositoryInterface

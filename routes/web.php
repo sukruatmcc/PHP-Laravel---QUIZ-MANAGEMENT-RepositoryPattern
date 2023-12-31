@@ -29,6 +29,7 @@ Route::middleware(['auth','is_admin'])->group(function () {
         Route::put('student/{id}/edit',[StudentController::class,'update'])->name('student.update');
         Route::delete('student/{id}/destroy', [StudentController::class, 'destroy'])->name('student.destroy');
 
+
         Route::get('exams', [ExamController::class, 'index'])->name('exams');
         Route::get('exam/add', [ExamController::class, 'create'])->name('exam.add');
         Route::post('exam/add', [ExamController::class, 'store'])->name('exam.store');
@@ -37,6 +38,7 @@ Route::middleware(['auth','is_admin'])->group(function () {
         Route::delete('exam/{id}/destroy', [ExamController::class, 'destroy'])->name('exam.destroy');
         Route::post('/exam/status',[ExamController::class,'status'])->name("exam.status");
         Route::get('exam/questions/{id}',[ExamController::class,'show'])->name('exam.questions');
+        Route::get('/assign-questions', [ExamController::class, 'assignQuestions'])->name('assign.questions');
 
         Route::get('question/add/{id}',[QuestionController::class,'create'])->name('question.add');
         Route::post('question/add',[QuestionController::class,'store'])->name('question.store');
@@ -50,6 +52,7 @@ Route::middleware(['auth','is_admin'])->group(function () {
         Route::get('exam/result/{id}/edit', [StudentController::class, 'examResultEdit'])->name('examResult.edit');
         Route::put('exam/result/{id}/edit',[StudentController::class,'examResultUpdate'])->name('examResult.update');
         Route::delete('exam/result/{id}/destroy', [StudentController::class, 'examResultDestroy'])->name('examResult.destroy');
+
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

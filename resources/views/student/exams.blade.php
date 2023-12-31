@@ -13,6 +13,16 @@
         <div class="row">
             @include('student.layouts.success')
             <div class="col-md-12">
+                <form action="" method="GET">
+                    <select name="name"  class="form-control">
+                        <option value="">Exam Select</option>
+                        @foreach ($exams as $exam)
+                            <option @if(request()->get('name') == $exam->name ? : 'selected') selected @endif value="{{ $exam->name }}">{{ $exam->name }}</option>
+                        @endforeach
+                    </select><br>
+                    <button  type="submit">Search</button>
+                </form>
+                <br><br>
                 @foreach ($exams as $exam)
                     <div class="card" style="width:800px">
                         <div class="card-body">
@@ -21,16 +31,20 @@
                             <p><strong>Number of questions: {{ $exam->question->count() }}</strong></p>
                             <p><strong class="text-info">End Date: {{ $exam->end_date }}</strong></p>
                             @if ($exam->myResult)
-                                <p><strong>Point:{{ $exam->myResult->point }} | <span class="text-success">Correct:{{ $exam->myResult->correct }}</span><span class="text-danger"> Wrong:{{ $exam->myResult->wrong }}</span></strong></p> - <p class="{{ $exam->passing_score > $exam->myResult->point ? 'text-danger' : 'text-success' }}">
+                                <p><strong>Point:{{ $exam->myResult->point }} | <span
+                                            class="text-success">Correct:{{ $exam->myResult->correct }}</span><span
+                                            class="text-danger"> Wrong:{{ $exam->myResult->wrong }}</span></strong></p> - <p
+                                    class="{{ $exam->passing_score > $exam->myResult->point ? 'text-danger' : 'text-success' }}">
                                     {{ $exam->passing_score > $exam->myResult->point
                                         ? 'You failed this exam
-                                                                    '
+                                                                                                                                            '
                                         : 'You passed this test
-                                    ' }}
+                                                                                                            ' }}
                                 </p>
                             @endif
                             @if ($exam->myResult)
-                                <a href="{{ route('student.exam.result',$exam->id) }}" class="btn btn-block btn-warning btn-flat">View Exam</a>
+                                <a href="{{ route('student.exam.result', $exam->id) }}"
+                                    class="btn btn-block btn-warning btn-flat">View Exam</a>
                             @else
                                 <a href="{{ route('student.exam.question', $exam->id) }}" type="button"
                                     class="btn btn-block btn-primary btn-flat">Join

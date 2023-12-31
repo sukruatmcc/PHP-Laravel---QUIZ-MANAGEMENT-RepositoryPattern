@@ -39,6 +39,14 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('assign.questions') }}" class="nav-link @yield('assignQuestions')">
+                    <i class="fa-solid fa-square-poll-horizontal"></i>
+                    <p>
+   Assigning Questions
+                    </p>
+                </a>
+            </li>
                 <li class="nav-item">
                     <a href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit()";

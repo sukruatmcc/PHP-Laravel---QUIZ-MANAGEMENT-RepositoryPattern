@@ -19,4 +19,9 @@ class Exam extends Model
     {
       return $this->hasOne('App\Models\Result')->where('user_id',auth()->user()->id);
     }
+
+    public function results()
+    {
+      return $this->hasMany('App\Models\Result','exam_id','id');
+    }
 }
